@@ -3,7 +3,12 @@ var colors = {
   hex: '#194d33',
   hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
 }
-
+var balance_whites=true;
+var white_adjust ={
+	r:739,
+	g:1000,
+	b:350
+}
 var device_ip= "192.168.0.52";
 var ledid= "-1";
 var RGB_channels=3;
@@ -24,7 +29,9 @@ var app = new Vue({
 		colors,
 		device_ip,
 		ledid,
-		RGB_channels
+		RGB_channels,
+		balance_whites,
+		white_adjust,
 	 }
   },
   computed: {
@@ -33,7 +40,17 @@ var app = new Vue({
 		//http://192.168.0.52/fixrgb?r=400&g=4000&b=0&ledid=-1
 		//http://192.168.0.100/fixhsl?h=0&s=1000&l=500
 		//return "http://" + this.device_ip + "/fixhsl?h=" + Math.round(this.colors.hsl.h*1000/360) + "&s=" + Math.round(this.colors.hsl.s*1000) + "&l=" + Math.round(this.colors.hsl.l*1000) +"&ledid=" +this.ledid;
-		return "http://" + this.device_ip + "/fixrgb?r=" + Math.round(this.colors.rgba.r*.588*4096/256) + "&g=" + Math.round(this.colors.rgba.g*4096/256) + "&b=" + Math.round(this.colors.rgba.b*.390*4096.0/256.0) +"&ledid=" +this.ledid;
+		if(this.balance_whites){
+			var r=Math.round(this.colors.rgba.r*this.white_adjust.r/1000*4096/256);
+			var g=Math.round(this.colors.rgba.g*this.white_adjust.g/1000*4096/256);
+			var b=Math.round(this.colors.rgba.b*this.white_adjust.b/1000*4096.0/256.0);
+		}
+		else{
+			var r=Math.round(this.colors.rgba.r*4096/256);
+			var g=Math.round(this.colors.rgba.g*4096/256);
+			var b=Math.round(this.colors.rgba.b*4096.0/256.0);	
+		}
+		return "http://" + this.device_ip + "/fixrgb?r=" + r + "&g=" + g + "&b=" + b +"&ledid=" +this.ledid;
 	 },
 	 url_off: function() {
 		return "http://" + this.device_ip + "/off";
@@ -42,18 +59,22 @@ var app = new Vue({
   watch: {
 	 colors: {
 		handler: function(newColor, oldColor) {
-		const Http = new XMLHttpRequest();
-		Http.open("GET", this.url);
-		Http.send();
+			this.send_command(this.url);
 		},
 		deep: true
 	 }
   },
 	methods: {
 		off: function () {
+			this.send_command(this.url_off);
+		},
+		send_command(url_command){
 			const Http = new XMLHttpRequest();
-			Http.open("GET", this.url_off);
+			Http.open("GET", url_command);
 			Http.send();
+		},
+		dumpwhites: function() {
+			this.send_command(this.url)
 		}
 	}
   

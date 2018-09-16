@@ -18,7 +18,16 @@
     <input v-model="device_ip" placeholder="IP">
     <button v-on:click="off()">OFF</button>
     <div>
-      
+      <div class="" >
+        <input type="checkbox" id="bwhites" v-model="balance_whites">
+        <label for="bwhites">Balanceo de blancos</label>
+        <input type="range" min="0" max="1000" v-model="white_adjust.r" class="slider" id="redrange" @click="dumpwhites">
+        <label for="redrange">{{white_adjust.r}}</label>
+        <input type="range" min="0" max="1000" v-model="white_adjust.g" class="slider" id="greenrange" @click="dumpwhites">
+        <label for="greenrange">{{white_adjust.g}}</label>
+        <input type="range" min="0" max="1000" v-model="white_adjust.b" class="slider" id="bluerange" @click="dumpwhites">
+        <label for="bluerange">{{white_adjust.b}}</label>
+      </div>
     </div>
     <div>
       <input type="radio" value="-1" v-model="ledid">

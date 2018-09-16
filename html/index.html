@@ -14,19 +14,25 @@
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" :style="{ 'background-color': colors.hex}">
     <input v-model="device_ip" placeholder="IP">
     <button v-on:click="off()">OFF</button>
-    <input type="radio" value="-1" v-model="ledid">
-    <label for="todas">Todas</label>
-    <br>
-    <input type="radio" value="0" v-model="ledid">
-    <label for="c0">Canal 0</label>
-    <input type="radio" value="1" v-model="ledid">
-    <label for="c1">Canal 1</label>
-    <br>
-    <input type="radio" value="2" v-model="ledid">
-    <label for="c2">Canal 2</label>
+    <div>
+      
+    </div>
+    <div>
+      <input type="radio" value="-1" v-model="ledid">
+      <label for="todas">Todas</label>
+      <br>
+      <input type="radio" value="0" v-model="ledid">
+      <label for="c0">Canal 0</label>
+      <input type="radio" value="1" v-model="ledid">
+      <label for="c1">Canal 1</label>
+      <br>
+      <input type="radio" value="2" v-model="ledid">
+      <label for="c2">Canal 2</label>
+      
+    </div>
     <div>
       <sketch-picker v-model="colors" />
     </div>

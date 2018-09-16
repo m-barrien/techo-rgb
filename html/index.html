@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>RGB TECHO</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <style type="text/css">
+
+  </style>
+  <!--[if lt IE 9]>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.ie.min.css" />
+  <![endif]-->
+</head>
+
+<body>
+  <div id="app">
+    <input v-model="device_ip" placeholder="IP">
+    <button v-on:click="off()">OFF</button>
+    <input type="radio" value="-1" v-model="ledid">
+    <label for="todas">Todas</label>
+    <br>
+    <input type="radio" value="0" v-model="ledid">
+    <label for="c0">Canal 0</label>
+    <input type="radio" value="1" v-model="ledid">
+    <label for="c1">Canal 1</label>
+    <br>
+    <input type="radio" value="2" v-model="ledid">
+    <label for="c2">Canal 2</label>
+    <div>
+      <sketch-picker v-model="colors" />
+    </div>
+    <div>
+      <compact-picker v-model="colors" />
+    </div>
+
+    <div>
+      <swatches-picker v-model="colors" />
+    </div>
+   
+  </div>
+  <!-- built files will be auto injected -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
+<script src="vue.js"></script>
+<script type='text/javascript' src='tinycolor.js'></script>
+<script src="vue-color.min.js" type=""></script>
+<script src="main.js"></script>
+</body>
+
+</html>

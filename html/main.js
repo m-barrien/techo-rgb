@@ -10,6 +10,8 @@ var white_adjust ={
 	b:350
 }
 var device_ip= "192.168.0.52";
+var mode="rainbow";
+var cycles= 100;
 var ledid= "-1";
 var RGB_channels=3;
 console.log(Vue.version)
@@ -32,6 +34,8 @@ var app = new Vue({
 		RGB_channels,
 		balance_whites,
 		white_adjust,
+		cycles,
+		mode
 	 }
   },
   computed: {
@@ -54,7 +58,10 @@ var app = new Vue({
 	 },
 	 url_off: function() {
 		return "http://" + this.device_ip + "/off";
-	 }
+	 },
+	 url_mode: function() {
+		return "http://" + this.device_ip + "/mode?palette="+ this.mode + "&ledid=" + this.ledid+ "&cycles=" + Math.round(Math.pow(2,this.cycles/10.0));
+	 },
   },
   watch: {
 	 colors: {
@@ -75,6 +82,18 @@ var app = new Vue({
 		},
 		dumpwhites: function() {
 			this.send_command(this.url)
+		},
+		mode_rainbow: function(){
+			this.mode = "rainbow";
+			this.send_command(this.url_mode)
+		},
+		mode_random: function(){
+			this.mode = "random";
+			this.send_command(this.url_mode);
+
+		},
+		refresh_cycles: function () {
+			this.send_command(this.url_mode);
 		}
 	}
   

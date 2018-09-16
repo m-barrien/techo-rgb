@@ -43,6 +43,12 @@
       
     </div>
     <div>
+      <button v-on:click="mode_rainbow()">RAINBOW</button>
+      <button v-on:click="mode_random()">RANDOM</button>
+      <input type="range" min="0" max="170" v-model="cycles" class="slider" id="cyclesrange" @click="refresh_cycles()">
+      <label for="cyclesrange">{{Math.round(Math.pow(2,this.cycles/10.0))}}</label>
+    </div>
+    <div>
       <sketch-picker v-model="colors" />
     </div>
     <div>

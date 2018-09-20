@@ -14,6 +14,7 @@ var mode="rainbow";
 var cycles= 100;
 var ledid= "-1";
 var RGB_channels=3;
+var color_array = { "c0" : "#ddd","c1" : "#ddd","c2" : "#ddd" }
 console.log(Vue.version)
 var app = new Vue({
   el: '#app',
@@ -35,7 +36,8 @@ var app = new Vue({
 		balance_whites,
 		white_adjust,
 		cycles,
-		mode
+		mode,
+		color_array
 	 }
   },
   computed: {
@@ -66,6 +68,14 @@ var app = new Vue({
   watch: {
 	 colors: {
 		handler: function(newColor, oldColor) {
+			if (this.ledid == -1) {
+				this.color_array.c0 = newColor.hex;
+				this.color_array.c1 = newColor.hex;
+				this.color_array.c2 = newColor.hex;
+			}
+			else if (this.ledid == 0) {this.color_array.c0 = newColor.hex;}
+			else if (this.ledid == 1) {this.color_array.c1 = newColor.hex;}
+			else if (this.ledid == 2) {this.color_array.c2 = newColor.hex;}
 			this.send_command(this.url);
 		},
 		deep: true
@@ -85,10 +95,19 @@ var app = new Vue({
 		},
 		mode_rainbow: function(){
 			this.mode = "rainbow";
+
+			if (this.ledid == -1 || this.ledid == 0) {this.color_array.c0 = 'url(#linear)';}
+			else if (this.ledid == -1 || this.ledid == 1) {this.color_array.c1 = 'url(#linear)';}
+			else if (this.ledid == -1 || this.ledid == 2) {this.color_array.c2 = 'url(#linear)';}
 			this.send_command(this.url_mode)
 		},
 		mode_random: function(){
 			this.mode = "random";
+
+			if (this.ledid == -1 || this.ledid == 0) {this.color_array.c0 = 'url(#linear)';}
+			else if (this.ledid == -1 || this.ledid == 1) {this.color_array.c1 = 'url(#linear)';}
+			else if (this.ledid == -1 || this.ledid == 2) {this.color_array.c2 = 'url(#linear)';}
+
 			this.send_command(this.url_mode);
 
 		},
@@ -97,6 +116,19 @@ var app = new Vue({
 		},
 		setLedId: function (id) {
 			this.ledid=id;
+		},
+		panelSelectColor: function (id) {
+			if(this.ledid==id || this.ledid ==-1){
+				return "#dfd";
+			}
+			return "#ddd"
+		},
+
+		panelColor: function (id) {
+			if (id == 0) {return this.color_array.c0 }
+			else if (id == 1) {return this.color_array.c1 }
+			else if (id == 2) {return this.color_array.c2 }
+			else return "#000";
 		},
 
 	}

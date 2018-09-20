@@ -31,31 +31,36 @@
     </div>
 
      <svg height="260" width="302">
+
+        <defs>
+          <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#FF0A00"/>
+            <stop offset="20%"   stop-color="#FFF000"/>
+            <stop offset="40%" stop-color="#28FF00"/>
+            <stop offset="60%" stop-color="#00FFE6"/>
+            <stop offset="80%" stop-color="#000AFF"/>
+            <stop offset="100%" stop-color="#D200FF"/>
+          </linearGradient>
+        </defs>
+
       <polygon points="25,25 159,25 159,101 25,125" 
-        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        :style=" { 'fill': panelSelectColor(0), 'stroke':panelColor(0), 'stroke-width':7 }" 
         @click="setLedId(0)"/>   
       <polygon points="147,161 277,135 277,235 147,235" 
-        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        :style=" { 'fill': panelSelectColor(0), 'stroke':panelColor(0), 'stroke-width':7 }" 
         @click="setLedId(0)"/>   
       <polygon points="179,25 277,25 277,117 179,135" 
-        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        :style=" { 'fill': panelSelectColor(1), 'stroke':panelColor(1), 'stroke-width':7 }" 
         @click="setLedId(1)"/>   
       <polygon points="25,145 129,125 129,235 25,235" 
-        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        :style=" { 'fill': panelSelectColor(1), 'stroke':panelColor(1), 'stroke-width':7 }" 
         @click="setLedId(1)"/>   
     </svg>
 
     <div>
-      <input type="radio" value="-1" v-model="ledid">
-      <label for="todas">Todas</label>
+      <button v-on:click="setLedId(-1)">Todas</button>
       <br>
-      <input type="radio" value="0" v-model="ledid">
-      <label for="c0">Canal 0</label>
-      <input type="radio" value="1" v-model="ledid">
-      <label for="c1">Canal 1</label>
-      <br>
-      <input type="radio" value="2" v-model="ledid">
-      <label for="c2">Canal 2</label>
+
       
     </div>
     <div>

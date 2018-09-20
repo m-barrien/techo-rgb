@@ -94,7 +94,11 @@ var app = new Vue({
 		},
 		refresh_cycles: function () {
 			this.send_command(this.url_mode);
-		}
+		},
+		setLedId: function (id) {
+			this.ledid=id;
+		},
+
 	}
   
 })

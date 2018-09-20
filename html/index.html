@@ -13,8 +13,8 @@
   <![endif]-->
 </head>
 
-<body>
-  <div id="app" :style="{ 'background-color': colors.hex}">
+<body style="background-color:#ddd ">
+  <div id="app" >
     <input v-model="device_ip" placeholder="IP">
     <button v-on:click="off()">OFF</button>
     <div>
@@ -29,6 +29,22 @@
         <label for="bluerange">{{white_adjust.b}}</label>
       </div>
     </div>
+
+     <svg height="260" width="302">
+      <polygon points="25,25 159,25 159,101 25,125" 
+        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        @click="setLedId(0)"/>   
+      <polygon points="147,161 277,135 277,235 147,235" 
+        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        @click="setLedId(0)"/>   
+      <polygon points="179,25 277,25 277,117 179,135" 
+        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        @click="setLedId(1)"/>   
+      <polygon points="25,145 129,125 129,235 25,235" 
+        :style=" { 'fill': '#ddd', 'stroke':colors.hex, 'stroke-width':7 }" 
+        @click="setLedId(1)"/>   
+    </svg>
+
     <div>
       <input type="radio" value="-1" v-model="ledid">
       <label for="todas">Todas</label>
@@ -49,14 +65,10 @@
       <label for="cyclesrange">{{Math.round(Math.pow(2,this.cycles/10.0))}}</label>
     </div>
     <div>
-      <sketch-picker v-model="colors" />
+      <chrome-picker v-model="colors" />
     </div>
     <div>
       <compact-picker v-model="colors" />
-    </div>
-
-    <div>
-      <swatches-picker v-model="colors" />
     </div>
    
   </div>

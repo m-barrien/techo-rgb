@@ -97,16 +97,16 @@ var app = new Vue({
 			this.mode = "rainbow";
 
 			if (this.ledid == -1 || this.ledid == 0) {this.color_array.c0 = 'url(#linear)';}
-			else if (this.ledid == -1 || this.ledid == 1) {this.color_array.c1 = 'url(#linear)';}
-			else if (this.ledid == -1 || this.ledid == 2) {this.color_array.c2 = 'url(#linear)';}
+			if (this.ledid == -1 || this.ledid == 1) {this.color_array.c1 = 'url(#linear)';}
+			if (this.ledid == -1 || this.ledid == 2) {this.color_array.c2 = 'url(#linear)';}
 			this.send_command(this.url_mode)
 		},
 		mode_random: function(){
 			this.mode = "random";
 
 			if (this.ledid == -1 || this.ledid == 0) {this.color_array.c0 = 'url(#linear)';}
-			else if (this.ledid == -1 || this.ledid == 1) {this.color_array.c1 = 'url(#linear)';}
-			else if (this.ledid == -1 || this.ledid == 2) {this.color_array.c2 = 'url(#linear)';}
+			if (this.ledid == -1 || this.ledid == 1) {this.color_array.c1 = 'url(#linear)';}
+			if (this.ledid == -1 || this.ledid == 2) {this.color_array.c2 = 'url(#linear)';}
 
 			this.send_command(this.url_mode);
 

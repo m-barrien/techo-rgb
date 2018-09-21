@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>RGB TECHO</title>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <style type="text/css">
 
-  </style>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -21,67 +19,68 @@
 <body style="background-color:#ddd ">
   <div id="app" class="container">
     <div class="row">
-      <input class="form-control" v-model="device_ip" placeholder="IP">
-      <button type="button" class="btn btn-danger" v-on:click="off()">OFF</button>
+      <div class="col-sm-12 col-md-12" >
+        <input class="form-control" v-model="device_ip" placeholder="IP">
+        <button type="button" class="btn btn-danger" v-on:click="off()">OFF</button>
+      </div>
       
-      <div class="" >
+      <div class="col-sm-12 col-md-12 form-group" >
         <input type="checkbox" id="bwhites" v-model="balance_whites">
         <label for="bwhites">Balanceo de blancos</label>
-        <input type="range" min="0" max="1000" v-model="white_adjust.r" class="slider" id="redrange" @click="dumpwhites">
-        <label for="redrange">{{white_adjust.r}}</label>
-        <input type="range" min="0" max="1000" v-model="white_adjust.g" class="slider" id="greenrange" @click="dumpwhites">
-        <label for="greenrange">{{white_adjust.g}}</label>
-        <input type="range" min="0" max="1000" v-model="white_adjust.b" class="slider" id="bluerange" @click="dumpwhites">
-        <label for="bluerange">{{white_adjust.b}}</label>
+        <br>
+        <label for="redrange"> Rojo {{white_adjust.r}}</label>
+        <input class="form-control-range" type="range" min="0" max="1000" v-model="white_adjust.r" class="slider" id="redrange" @click="dumpwhites">
+        <label for="greenrange">Verde {{white_adjust.g}}</label>
+        <input class="form-control-range" type="range" min="0" max="1000" v-model="white_adjust.g" class="slider" id="greenrange" @click="dumpwhites">
+        <label for="bluerange">Azul {{white_adjust.b}}</label>
+        <input class="form-control-range" type="range" min="0" max="1000" v-model="white_adjust.b" class="slider" id="bluerange" @click="dumpwhites">
       </div>
     </div>
     <div id="panels" class="row">
-     <svg height="auto" width="auto" viewBox="10 10 280 238" preserveAspectRatio="meet">
+      <div class="col-md-6 col-sm-12">
+         <button type="button" class="btn btn-secondary" style="width: 100%" v-on:click="setLedId(-1)">Seleccionar Todas</button>
+         <svg height="auto" width="auto" viewBox="10 10 280 238" preserveAspectRatio="meet">
 
-        <defs>
-          <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#FF0A00"/>
-            <stop offset="20%"   stop-color="#FFF000"/>
-            <stop offset="40%" stop-color="#28FF00"/>
-            <stop offset="60%" stop-color="#00FFE6"/>
-            <stop offset="80%" stop-color="#000AFF"/>
-            <stop offset="100%" stop-color="#D200FF"/>
-          </linearGradient>
-        </defs>
+            <defs>
+              <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#FF0A00"/>
+                <stop offset="20%"   stop-color="#FFF000"/>
+                <stop offset="40%" stop-color="#28FF00"/>
+                <stop offset="60%" stop-color="#00FFE6"/>
+                <stop offset="80%" stop-color="#000AFF"/>
+                <stop offset="100%" stop-color="#D200FF"/>
+              </linearGradient>
+            </defs>
 
-      <polygon points="25,25 159,25 159,101 25,125" 
-        :style=" { 'fill': panelSelectColor(0), 'stroke':panelColor(0), 'stroke-width':7 }" 
-        @click="setLedId(0)"/>   
-      <polygon points="147,161 277,135 277,235 147,235" 
-        :style=" { 'fill': panelSelectColor(0), 'stroke':panelColor(0), 'stroke-width':7 }" 
-        @click="setLedId(0)"/>   
-      <polygon points="179,25 277,25 277,117 179,135" 
-        :style=" { 'fill': panelSelectColor(1), 'stroke':panelColor(1), 'stroke-width':7 }" 
-        @click="setLedId(1)"/>   
-      <polygon points="25,145 129,125 129,235 25,235" 
-        :style=" { 'fill': panelSelectColor(1), 'stroke':panelColor(1), 'stroke-width':7 }" 
-        @click="setLedId(1)"/>   
-    </svg>
-      
-    </div>
-
-    <div>
-      <button v-on:click="setLedId(-1)">Todas</button>
-      <br>
-
-      
-    </div>
-    <div>
-      <button v-on:click="mode_rainbow()">RAINBOW</button>
-      <button v-on:click="mode_random()">RANDOM</button>
-      <input type="range" min="0" max="170" v-model="cycles" class="slider" id="cyclesrange" @click="refresh_cycles()">
-      <label for="cyclesrange">{{Math.round(Math.pow(2,this.cycles/10.0))}}</label>
-    </div>
-    <div>
-      <chrome-picker v-model="colors" />
-    </div>
-    <div>
-      <compact-picker v-model="colors" />
+            <polygon points="25,25 159,25 159,101 25,125" 
+              :style=" { 'fill': panelSelectColor(0), 'stroke':panelColor(0), 'stroke-width':7 }" 
+              @click="setLedId(0)"/>   
+            <polygon points="147,161 277,135 277,235 147,235" 
+              :style=" { 'fill': panelSelectColor(0), 'stroke':panelColor(0), 'stroke-width':7 }" 
+              @click="setLedId(0)"/>   
+            <polygon points="179,25 277,25 277,117 179,135" 
+              :style=" { 'fill': panelSelectColor(1), 'stroke':panelColor(1), 'stroke-width':7 }" 
+              @click="setLedId(1)"/>   
+            <polygon points="25,145 129,125 129,235 25,235" 
+              :style=" { 'fill': panelSelectColor(1), 'stroke':panelColor(1), 'stroke-width':7 }" 
+              @click="setLedId(1)"/>   
+          </svg>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div>
+          <chrome-picker v-model="colors" />
+        </div>
+        <div>
+          <compact-picker v-model="colors" />
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <button type="button" class="btn btn-secondary" v-on:click="mode_rainbow()">RAINBOW</button>
+        <button type="button" class="btn btn-secondary" v-on:click="mode_random()">RANDOM</button>
+        <label for="cyclesrange">{{Math.round(Math.pow(2,this.cycles/10.0))}}</label>
+        <input type="range" min="0" max="170" v-model="cycles" class="slider" id="cyclesrange" @click="refresh_cycles()">
+      </div>
+        
     </div>
    
   </div>
@@ -93,6 +92,16 @@
 <script type='text/javascript' src='tinycolor.js'></script>
 <script src="vue-color.min.js" type=""></script>
 <script src="main.js"></script>
+
+  <style type="text/css">
+    .vc-compact{
+      width: 100%;
+    }
+    .vc-chrome{
+      width: 100%;
+    }
+  </style>
+
 </body>
 
 </html>

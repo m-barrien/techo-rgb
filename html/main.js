@@ -1,7 +1,12 @@
 
 var colors = {
-  hex: '#194d33',
-  hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
+  hex: '#ffffff',
+  hsl: { h: 150, s: 1, l: 1, a: 1 },
+}
+var raw_rgb = {
+  r:4095,
+  g:4095,
+  b:4095,
 }
 var balance_whites=true;
 var white_adjust ={
@@ -37,7 +42,8 @@ var app = new Vue({
 		white_adjust,
 		cycles,
 		mode,
-		color_array
+		color_array,
+		raw_rgb
 	 }
   },
   computed: {

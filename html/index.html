@@ -77,6 +77,8 @@
       <div class="col-md-12 col-sm-12">
         <button type="button" class="btn btn-secondary" v-on:click="mode_rainbow()">RAINBOW</button>
         <button type="button" class="btn btn-secondary" v-on:click="mode_random()">RANDOM</button>
+        <button type="button" class="btn btn-secondary" v-on:click="mode_sleep()">SLEEP</button>
+        <button type="button" class="btn btn-secondary" v-on:click="mode_project()">PROYECTOR</button>
         <label for="cyclesrange">{{Math.round(Math.pow(2,this.cycles/10.0))}}</label>
         <input type="range" min="0" max="170" v-model="cycles" class="slider" id="cyclesrange" @click="refresh_cycles()">
       </div>

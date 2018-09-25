@@ -70,6 +70,12 @@ var app = new Vue({
 	 url_mode: function() {
 		return "http://" + this.device_ip + "/mode?palette="+ this.mode + "&ledid=" + this.ledid+ "&cycles=" + Math.round(Math.pow(2,this.cycles/10.0));
 	 },
+	 url_sleep: function() {
+		return "http://" + this.device_ip +"/fixrgb?r=30&g=15&b=0&ledid=" +this.ledid;
+	 },
+	 url_proyect: function() {
+		return "http://" + this.device_ip +"/fixrgb?r=248&g=288&b=95&ledid=" +this.ledid;
+	 },
   },
   watch: {
 	 colors: {
@@ -98,6 +104,12 @@ var app = new Vue({
 		},
 		dumpwhites: function() {
 			this.send_command(this.url)
+		},
+		mode_sleep: function() {
+			this.send_command(this.url_sleep)
+		},
+		mode_project: function() {
+			this.send_command(this.url_proyect)
 		},
 		mode_rainbow: function(){
 			this.mode = "rainbow";

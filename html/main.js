@@ -1,7 +1,7 @@
 
 var colors = {
   hex: '#ffffff',
-  hsl: { h: 150, s: 1, l: 1, a: 1 },
+  hsl: { h: 10, s: 1, l: 1, a: 1 },
 }
 var raw_rgb = {
   r:4095,
@@ -14,7 +14,7 @@ var white_adjust ={
 	g:1000,
 	b:350
 }
-var device_ip= "192.168.0.52";
+var device_ip= "192.168.0.100";
 var mode="rainbow";
 var cycles= 100;
 var ledid= "-1";
@@ -71,7 +71,7 @@ var app = new Vue({
 		return "http://" + this.device_ip + "/mode?palette="+ this.mode + "&ledid=" + this.ledid+ "&cycles=" + Math.round(Math.pow(2,this.cycles/10.0));
 	 },
 	 url_sleep: function() {
-		return "http://" + this.device_ip +"/fixrgb?r=30&g=15&b=0&ledid=" +this.ledid;
+		return "http://" + this.device_ip +"/fixrgb?r=14&g=0&b=0&ledid=" +this.ledid;
 	 },
 	 url_proyect: function() {
 		return "http://" + this.device_ip +"/fixrgb?r=248&g=288&b=95&ledid=" +this.ledid;
